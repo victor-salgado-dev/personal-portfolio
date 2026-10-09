@@ -109,7 +109,7 @@
       <a href="#contact" class="mobile-nav__link" data-i18n="navContact">Contact</a>
     </nav>
     <div class="mobile-nav__foot">
-      <a class="icon-btn" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
+      <a class="icon-btn" href="https://github.com/victor-salgado-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
       <a class="icon-btn" href="https://www.linkedin.com/in/victor-salgado-699632357" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#icon-linkedin"></use></svg></a>
       <a class="icon-btn" href="mailto:victorsalsa2025@hotmail.com" aria-label="Email"><svg><use href="#icon-mail"></use></svg></a>
       <a class="icon-btn" href="downloads/Lebenslauf victor 2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV"><svg><use href="#icon-download"></use></svg></a>
@@ -304,6 +304,7 @@
             <h3 class="skill-group__title" data-i18n="skillsCategoryInfra">Infrastructure</h3>
             <div class="tag-row">
               <span class="tag">Docker</span>
+              <span class="tag">Apache</span>
               <span class="tag">Kubernetes</span>
               <span class="tag">Linux</span>
               <span class="tag">Windows Server</span>
@@ -321,9 +322,21 @@
           </div>
 
           <div class="skill-group reveal">
-            <h3 class="skill-group__title" data-i18n="skillsCategoryMonitoring">Monitoring</h3>
+            <h3 class="skill-group__title" data-i18n="skillsCategoryDev">Development</h3>
             <div class="tag-row">
-              <span class="tag">Zabbix</span>
+              <span class="tag">Java</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">PHP 8.3</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Express</span>
+              <span class="tag">Socket.IO</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">bcryptjs</span>
+              <span class="tag">JavaFX</span>
+              <span class="tag">Maven</span>
             </div>
           </div>
 
@@ -343,14 +356,9 @@
           </div>
 
           <div class="skill-group reveal">
-            <h3 class="skill-group__title" data-i18n="skillsCategoryDev">Development</h3>
+            <h3 class="skill-group__title" data-i18n="skillsCategoryMonitoring">Monitoring</h3>
             <div class="tag-row">
-              <span class="tag">Java</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">React</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">PHP</span>
-              <span class="tag">PostgreSQL</span>
+              <span class="tag">Zabbix</span>
             </div>
           </div>
         </div>
@@ -369,6 +377,30 @@
         <div class="projects__grid" id="projectsGrid"><!-- rendered by js/main.js from js/data.js --></div>
       </div>
     </section>
+
+    <dialog class="project-dialog" id="projectDialog" aria-labelledby="projectDialogTitle">
+      <header class="project-dialog__header">
+        <h2 class="project-dialog__title" id="projectDialogTitle"></h2>
+        <button class="icon-btn project-dialog__close" id="projectDialogClose" type="button" data-i18n-aria="projectDetailsCloseAria" aria-label="Close project details">
+          <svg><use href="#icon-x"></use></svg>
+        </button>
+      </header>
+      <figure class="project-dialog__media">
+        <img id="projectDialogImage" alt="" loading="lazy">
+      </figure>
+      <div class="project-dialog__body">
+        <p class="project-dialog__description" id="projectDialogDescription"></p>
+        <section class="project-dialog__estimate" aria-labelledby="projectEstimateHeading">
+          <h3 id="projectEstimateHeading" data-i18n="projectEstimateLabel">Estimated effort with AI</h3>
+          <p id="projectDialogEstimate"></p>
+        </section>
+        <section class="project-dialog__technology" aria-labelledby="projectTechnologyHeading">
+          <h3 id="projectTechnologyHeading" data-i18n="projectTechnologiesLabel">Technologies</h3>
+          <div class="tag-row" id="projectDialogTags"></div>
+        </section>
+        <div class="project-dialog__links" id="projectDialogLinks"></div>
+      </div>
+    </dialog>
 
     <!-- ============================== CONTACT ============================== -->
     <section id="contact" class="section contact">
@@ -414,11 +446,11 @@
               <span class="icon-btn" aria-hidden="true"><svg><use href="#icon-external-link"></use></svg></span>
             </a>
 
-            <a class="contact-method reveal" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer">
+            <a class="contact-method reveal" href="https://github.com/victor-salgado-dev" target="_blank" rel="noopener noreferrer">
               <span class="contact-method__icon"><svg><use href="#icon-github"></use></svg></span>
               <span class="contact-method__text">
                 <span class="contact-method__label" data-i18n="contactGithubLabel">GitHub</span>
-                <span class="contact-method__value">github.com/victor202502</span>
+                <span class="contact-method__value">github.com/victor-salgado-dev</span>
               </span>
               <span class="icon-btn" aria-hidden="true"><svg><use href="#icon-external-link"></use></svg></span>
             </a>
@@ -483,7 +515,7 @@
         <a href="#contact" data-i18n="navContact">Contact</a>
       </nav>
       <div class="footer__socials">
-        <a class="icon-btn" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
+        <a class="icon-btn" href="https://github.com/victor-salgado-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
         <a class="icon-btn" href="https://www.linkedin.com/in/victor-salgado-699632357" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#icon-linkedin"></use></svg></a>
         <a class="icon-btn" href="mailto:victorsalsa2025@hotmail.com" aria-label="Email"><svg><use href="#icon-mail"></use></svg></a>
       </div>

@@ -32,13 +32,15 @@
       links += '<a class="btn btn--ghost btn--sm" href="' + project.download + '"' + downloadAttr + '>' +
         '<svg><use href="#icon-download"></use></svg><span>' + escapeHTML(t('projectsLinkDownload')) + '</span></a>';
     }
+    links += '<button class="btn btn--ghost btn--sm project-card__details" type="button" data-project-details="' + escapeHTML(project.id) + '">' +
+      escapeHTML(t('projectDetailsButton')) + '</button>';
 
     const motionImg = project.gif
       ? '<img class="project-card__img project-card__img--motion" src="' + project.gif + '" alt="" aria-hidden="true" loading="lazy">'
       : '';
 
     return (
-      '<article class="card card--interactive project-card reveal">' +
+      '<article class="card card--interactive project-card reveal" data-project-id="' + escapeHTML(project.id) + '" tabindex="0" aria-label="' + escapeHTML(title + ' — ' + t('projectDetailsButton')) + '">' +
         '<div class="project-card__media">' +
           '<img class="project-card__img project-card__img--static" src="' + project.image + '" alt="' + escapeHTML(title) + '" loading="lazy">' +
           motionImg +
@@ -61,6 +63,95 @@
       window.PortfolioAnimations.initScrollReveal(grid);
     }
     initMobileProjectPreviews(grid);
+  }
+
+  let activeProjectId = null;
+  let projectDialogOpener = null;
+
+  function updateProjectDialog(projectId) {
+    const project = PROJECTS_DATA.find(function (item) { return item.id === projectId; });
+    const dialog = document.getElementById('projectDialog');
+    if (!project || !dialog) return;
+
+    document.getElementById('projectDialogTitle').textContent = t(project.titleKey);
+    const dialogImage = document.getElementById('projectDialogImage');
+    dialogImage.src = project.gif || project.image;
+    dialogImage.alt = t(project.titleKey);
+    document.getElementById('projectDialogDescription').textContent = t(project.detailsKey);
+    document.getElementById('projectDialogEstimate').textContent = t(project.estimateKey);
+    document.getElementById('projectDialogTags').innerHTML = project.tags.map(function (tag) {
+      return '<span class="tag">' + escapeHTML(tag) + '</span>';
+    }).join('');
+
+    let links = '<a class="btn btn--secondary btn--sm" href="' + project.github + '" target="_blank" rel="noopener noreferrer">' +
+      '<svg><use href="#icon-github"></use></svg><span>' + escapeHTML(t('projectsLinkCode')) + '</span></a>';
+    if (project.demo) {
+      links += '<a class="btn btn--ghost btn--sm" href="' + project.demo + '" target="_blank" rel="noopener noreferrer">' +
+        '<svg><use href="#icon-external-link"></use></svg><span>' + escapeHTML(t('projectsLinkDemo')) + '</span></a>';
+    }
+    if (project.download) {
+      const downloadAttr = project.downloadFilename ? ' download="' + escapeHTML(project.downloadFilename) + '"' : ' download';
+      links += '<a class="btn btn--ghost btn--sm" href="' + project.download + '"' + downloadAttr + '>' +
+        '<svg><use href="#icon-download"></use></svg><span>' + escapeHTML(t('projectsLinkDownload')) + '</span></a>';
+    }
+    document.getElementById('projectDialogLinks').innerHTML = links;
+  }
+
+  function openProjectDialog(projectId, opener) {
+    const dialog = document.getElementById('projectDialog');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    activeProjectId = projectId;
+    projectDialogOpener = opener || document.activeElement;
+    updateProjectDialog(projectId);
+    if (!dialog.open) dialog.showModal();
+  }
+
+  function initProjectDialog() {
+    const grid = document.getElementById('projectsGrid');
+    const dialog = document.getElementById('projectDialog');
+    const closeButton = document.getElementById('projectDialogClose');
+    if (!grid || !dialog || !closeButton) return;
+
+    grid.addEventListener('click', function (event) {
+      const card = event.target.closest('.project-card');
+      if (!card || !grid.contains(card)) return;
+      if (event.target.closest('a')) return;
+      const detailsButton = event.target.closest('[data-project-details]');
+      if (event.target.closest('button') && !detailsButton) return;
+      openProjectDialog(card.getAttribute('data-project-id'), detailsButton || card);
+    });
+    grid.addEventListener('keydown', function (event) {
+      const card = event.target.closest('.project-card');
+      if (!card || event.target !== card || (event.key !== 'Enter' && event.key !== ' ')) return;
+      event.preventDefault();
+      openProjectDialog(card.getAttribute('data-project-id'), card);
+    });
+
+    closeButton.addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      dialog.close();
+    });
+    dialog.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        dialog.close();
+      }
+    });
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', function () {
+      const closedProjectId = activeProjectId;
+      activeProjectId = null;
+      if (projectDialogOpener && projectDialogOpener.isConnected) {
+        projectDialogOpener.focus();
+      } else if (closedProjectId) {
+        const card = grid.querySelector('[data-project-id="' + closedProjectId + '"]');
+        if (card) card.focus();
+      }
+      projectDialogOpener = null;
+    });
   }
 
   /* ---- Mobile project GIF preview ---------------------------------------
@@ -137,6 +228,8 @@
 
   function renderDynamicContent() {
     renderProjects();
+    const dialog = document.getElementById('projectDialog');
+    if (dialog && dialog.open && activeProjectId) updateProjectDialog(activeProjectId);
   }
 
   /* ---- Mobile nav ------------------------------------------------------- */
@@ -386,6 +479,7 @@
     if (window.ThemeManager) window.ThemeManager.init();
     if (window.I18n) window.I18n.init(); /* also triggers the first renderProjects() */
 
+    initProjectDialog();
     initMobileNav();
     initLangSwitch();
     initThemeToggleButton();
