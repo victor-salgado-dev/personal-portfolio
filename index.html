@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Víctor Salgado — System Administrator &amp; DevOps Engineer</title>
+  <meta name="description" content="Portfolio of Víctor Salgado, a System Administrator and DevOps Engineer specializing in Docker, Kubernetes, CI/CD automation, and infrastructure reliability.">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('preferredTheme');
+        var theme = (stored === 'light' || stored === 'dark') ? stored :
+          ((window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* localStorage/matchMedia unavailable — CSS default (dark) applies */ }
+    })();
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0E14'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%235B93FF'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <a href="#main" class="skip-link" data-i18n="skipToContent">Skip to content</a>
+
+  <!-- Icon sprite (shared, referenced via <use>) -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 3.5 5.4 3.8 5.4 3.8a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 10.2c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"/></symbol>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10.5" x2="7.5" y2="17"/><circle cx="7.5" cy="6.8" r=".6" fill="currentColor" stroke="none"/><line x1="11.3" y1="10.5" x2="11.3" y2="17"/><path d="M11.3 13.2a2.2 2.2 0 0 1 4.4 0V17"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.3"/><path d="M3 6.2 12 13l9-6.8"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 4h3.7l1.8 4.4-2.2 1.9a11.8 11.8 0 0 0 5.9 5.9l1.9-2.2 4.4 1.8v3.7a1.8 1.8 0 0 1-1.9 1.8A15.8 15.8 0 0 1 3.7 6.9 2 2 0 0 1 4.5 4z"/></symbol>
+    <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.7 7-12a7 7 0 1 0-14 0c0 5.3 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+    <symbol id="icon-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12.5"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16"/><path d="M4 12h16"/><path d="M4 17.5h16"/></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.5v2.7M12 18.8v2.7M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M2.5 12h2.7M18.8 12h2.7M4.9 19.1l1.9-1.9M17.2 6.8l1.9-1.9"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.8A8.5 8.5 0 1 1 9.2 3.5a7 7 0 0 0 11.3 11.3z"/></symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5 12 15l6-5.5"/></symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11.5" height="11.5" rx="2"/><path d="M4.5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7"/></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15"/><path d="M6 13l6 6 6-6"/></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5"/><path d="M6 11l6-6 6 6"/></symbol>
+  </svg>
+
+  <div aria-live="polite" class="visually-hidden" id="a11yAnnouncer"></div>
+
+  <!-- ============================== NAV ============================== -->
+  <nav class="nav" id="siteNav" aria-label="Primary">
+    <div class="nav__inner">
+      <a href="#home" class="nav__brand">
+        <span class="nav__mark">VS</span>
+        <span>Víctor Salgado</span>
+      </a>
+
+      <div class="nav__links" id="navLinks">
+        <a href="#experience" class="nav__link" data-i18n="navExperience">Experience</a>
+        <a href="#about" class="nav__link" data-i18n="navAbout">About</a>
+        <a href="#skills" class="nav__link" data-i18n="navSkills">Tech Stack</a>
+        <a href="#projects" class="nav__link" data-i18n="navProjects">Projects</a>
+        <a href="#contact" class="nav__link" data-i18n="navContact">Contact</a>
+      </div>
+
+      <div class="nav__actions">
+        <a class="btn btn--secondary btn--sm" id="navCvLink" href="downloads/Lebenslauf victor 2025.pdf" target="_blank" rel="noopener noreferrer">
+          <svg><use href="#icon-download"></use></svg>
+          <span data-i18n="navResume">Resume</span>
+        </a>
+
+        <div class="lang-switch" id="langSwitch">
+          <button class="lang-switch__button" id="langSwitchBtn" type="button" aria-haspopup="true" aria-expanded="false" data-i18n-aria="langSwitchAria" aria-label="Change language">
+            <span data-current-lang>DE</span>
+            <svg><use href="#icon-chevron-down"></use></svg>
+          </button>
+          <div class="lang-switch__menu" role="menu" id="langSwitchMenu">
+            <button class="lang-switch__option" type="button" data-lang="de" role="menuitem">Deutsch</button>
+            <button class="lang-switch__option" type="button" data-lang="en" role="menuitem">English</button>
+            <button class="lang-switch__option" type="button" data-lang="es" role="menuitem">Español</button>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="themeToggle" type="button" data-i18n-aria="themeToggleAria" aria-label="Toggle color theme">
+          <svg class="theme-icon theme-icon--sun"><use href="#icon-sun"></use></svg>
+          <svg class="theme-icon theme-icon--moon"><use href="#icon-moon"></use></svg>
+        </button>
+
+        <button class="icon-btn nav__toggle" id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNav" data-i18n-aria="mobileMenuAria" aria-label="Open menu">
+          <svg class="menu-icon menu-icon--open"><use href="#icon-menu"></use></svg>
+          <svg class="menu-icon menu-icon--close"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav__links" aria-label="Mobile">
+      <a href="#experience" class="mobile-nav__link" data-i18n="navExperience">Experience</a>
+      <a href="#about" class="mobile-nav__link" data-i18n="navAbout">About</a>
+      <a href="#skills" class="mobile-nav__link" data-i18n="navSkills">Tech Stack</a>
+      <a href="#projects" class="mobile-nav__link" data-i18n="navProjects">Projects</a>
+      <a href="#contact" class="mobile-nav__link" data-i18n="navContact">Contact</a>
+    </nav>
+    <div class="mobile-nav__foot">
+      <a class="icon-btn" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/victor-salgado-699632357" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#icon-linkedin"></use></svg></a>
+      <a class="icon-btn" href="mailto:victorsalsa2025@hotmail.com" aria-label="Email"><svg><use href="#icon-mail"></use></svg></a>
+      <a class="icon-btn" href="downloads/Lebenslauf victor 2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV"><svg><use href="#icon-download"></use></svg></a>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============================== HERO ============================== -->
+    <section id="home" class="hero">
+      <div class="hero__ambient" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <div class="hero__meta">
+            <img class="avatar hero__avatar" src="images/IMG_72705.png" alt="Víctor Salgado" width="52" height="52">
+            <span class="pill pill--status">
+              <span class="pill__dot pill__dot--pulse"></span>
+              <span data-i18n="heroAvailability">Available for new opportunities</span>
+            </span>
+          </div>
+
+          <p class="hero__role-tag" data-i18n="heroEyebrow">System Administrator · DevOps Engineer</p>
+          <h1 class="hero__headline" data-i18n="heroHeadline">I build infrastructure that just works — and automate the rest.</h1>
+          <p class="hero__subhead" data-i18n="heroSubhead">System Administrator &amp; DevOps Engineer specializing in containerized platforms, CI/CD pipelines, and infrastructure automation.</p>
+          <p class="hero__status-line" data-i18n="heroStatusLine">Currently managing production infrastructure and e-commerce systems for a company in Germany.</p>
+
+          <div class="hero__ctas">
+            <a href="#projects" class="btn btn--primary" data-i18n="heroCtaPrimary">View Projects</a>
+            <a href="#contact" class="btn btn--secondary" data-i18n="heroCtaSecondary">Get in Touch</a>
+          </div>
+
+          <div class="hero__stack tag-row" aria-label="Core tools">
+            <span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Linux</span>
+            <span class="tag">GitLab CI/CD</span>
+            <span class="tag">Ansible</span>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="terminal" id="heroTerminal">
+            <div class="terminal__bar">
+              <div class="terminal__dots"><span></span><span></span><span></span></div>
+              <span class="terminal__title">victor@infra — zsh</span>
+            </div>
+            <div class="terminal__body" id="terminalBody">
+              <div class="terminal__line reveal"><span class="terminal__prompt">victor@infra</span><span class="terminal__path">:~$</span>&nbsp;kubectl get nodes</div>
+              <div class="terminal__line reveal">NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;ROLE</div>
+              <div class="terminal__line reveal">node-01&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;&nbsp;control-plane</div>
+              <div class="terminal__line reveal">node-02&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;&nbsp;worker</div>
+              <div class="terminal__line reveal">node-03&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;&nbsp;worker</div>
+              <div class="terminal__line reveal">&nbsp;</div>
+              <div class="terminal__line reveal"><span class="terminal__prompt">victor@infra</span><span class="terminal__path">:~$</span>&nbsp;ansible-playbook deploy.yml</div>
+              <div class="terminal__line terminal__comment reveal">PLAY [production] ****************************</div>
+              <div class="terminal__line reveal"><span class="terminal__ok">ok:</span>&nbsp;[node-01]</div>
+              <div class="terminal__line reveal"><span class="terminal__ok">ok:</span>&nbsp;[node-02]</div>
+              <div class="terminal__line reveal"><span class="terminal__ok">ok:</span>&nbsp;[node-03]</div>
+              <div class="terminal__line reveal">&nbsp;</div>
+              <div class="terminal__line reveal"><span class="terminal__prompt">victor@infra</span><span class="terminal__path">:~$</span>&nbsp;git push <span class="terminal__comment">#&nbsp;pipeline #4821</span></div>
+              <div class="terminal__line reveal"><span class="terminal__ok">✓ deployed successfully</span><span class="terminal__cursor" id="terminalCursor"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#current-stack" class="hero__scroll-cue">
+        <span data-i18n="heroScrollCue">Scroll</span>
+        <svg><use href="#icon-arrow-down"></use></svg>
+      </a>
+    </section>
+
+    <!-- ============================== CURRENT STACK ============================== -->
+    <section id="current-stack" class="current-stack">
+      <div class="container current-stack__inner">
+        <span class="current-stack__label reveal" data-i18n="currentStackLabel">Currently working with</span>
+        <div class="tag-row current-stack__tags reveal">
+          <span class="tag">Docker</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">GitLab CI/CD</span>
+          <span class="tag">Ansible</span>
+          <span class="tag">Linux</span>
+          <span class="tag">WireGuard</span>
+          <span class="tag">Zabbix</span>
+          <span class="tag">JTL-Wawi</span>
+          <span class="tag">Shopware</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== EXPERIENCE ============================== -->
+    <section id="experience" class="section experience">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal" data-i18n="experienceEyebrow">// experience</p>
+          <h2 class="section-title reveal" data-i18n="experienceHeading">Experience</h2>
+        </div>
+
+        <div class="experience__grid">
+          <div class="experience__main">
+            <article class="card exp-card exp-card--primary reveal">
+              <header class="exp-card__head">
+                <div>
+                  <h3 class="exp-card__role" data-i18n="experienceRole">System Administrator &amp; DevOps Engineer</h3>
+                  <!-- TODO(Víctor): replace with your real employer name -->
+                  <p class="exp-card__company" data-i18n="experienceCompanyPlaceholder">Company Name</p>
+                </div>
+                <span class="badge" data-i18n="experienceCurrentBadge">Current</span>
+              </header>
+              <ul class="exp-card__list">
+                <li data-i18n="experienceBullet1">Run production Docker and Kubernetes infrastructure that keeps services available around the clock.</li>
+                <li data-i18n="experienceBullet2">Design GitLab CI/CD pipelines that take code from commit to production without manual steps.</li>
+                <li data-i18n="experienceBullet3">Automate deployments and configuration management with Ansible, replacing manual work with repeatable playbooks.</li>
+                <li data-i18n="experienceBullet4">Monitor production environments with Zabbix, catching issues before they affect users.</li>
+                <li data-i18n="experienceBullet5">Administer Linux and Windows Server infrastructure across development and production environments.</li>
+                <li data-i18n="experienceBullet7">Secure connectivity between environments with WireGuard.</li>
+                <li data-i18n="experienceBullet6">Keep ERP and e-commerce platforms — JTL-Wawi and Shopware — running reliably for day-to-day operations.</li>
+              </ul>
+            </article>
+
+            <article class="card exp-card exp-card--secondary reveal">
+              <p class="exp-card__label" data-i18n="experienceSecondaryLabel">Additional experience</p>
+              <h4 class="exp-card__role exp-card__role--sm" data-i18n="experienceSecondaryRole">IT Support &amp; Helpdesk</h4>
+              <div class="tag-row">
+                <span class="tag" data-i18n="experienceSecondaryTag1">Helpdesk Support</span>
+                <span class="tag">Citrix</span>
+                <span class="tag">BeyondTrust</span>
+                <span class="tag">Microsoft Server</span>
+                <span class="tag" data-i18n="experienceSecondaryTag2">Hardware &amp; Printer Support</span>
+              </div>
+            </article>
+          </div>
+
+          <aside class="experience__aside">
+            <div class="card edu-card reveal">
+              <p class="exp-card__label" data-i18n="experienceEducationHeading">Education &amp; Certifications</p>
+              <ul class="edu-card__list">
+                <li>
+                  <span class="edu-card__title">Fachinformatiker für Systemintegration</span>
+                  <span class="edu-card__year">2025</span>
+                </li>
+                <li>
+                  <a class="edu-card__cert" href="images/Screenshot 2025-04-01 080923.png" target="_blank" rel="noopener noreferrer">
+                    <img src="images/Screenshot 2025-04-01 080923.png" alt="Codecademy Full-Stack Engineer Path certificate" loading="lazy">
+                    <span>Codecademy — Full-Stack Engineer Path</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="edu-card__cert" href="images/Screenshot 2025-04-01 081147.png" target="_blank" rel="noopener noreferrer">
+                    <img src="images/Screenshot 2025-04-01 081147.png" alt="Codecademy Learn Java certificate" loading="lazy">
+                    <span>Codecademy — Learn Java</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section id="about" class="section about">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <img src="images/IMG_72701.png" alt="Víctor Salgado" class="about__photo">
+        </div>
+        <div class="about__content">
+          <p class="eyebrow reveal" data-i18n="aboutEyebrow">// about</p>
+          <h2 class="section-title reveal" data-i18n="aboutHeading">About</h2>
+          <p class="reveal" data-i18n="aboutParagraph1">I'm a System Administrator and DevOps Engineer based in Darmstadt, Germany, working at the intersection of infrastructure, automation, and reliability.</p>
+          <p class="reveal" data-i18n="aboutParagraph2">Day to day, that means keeping production systems healthy — and boring, in the best possible sense. I'm drawn to the parts of the job most people never see: the alert that catches a problem early, the playbook that turns hours of manual work into minutes.</p>
+          <p class="reveal" data-i18n="aboutParagraph3">I'm continuously leveling up my Kubernetes and infrastructure-as-code skills, and looking for a team where I can take on more ownership as I grow.</p>
+          <div class="about__focus tag-row reveal">
+            <span class="tag" data-i18n="aboutFocus1">Automation</span>
+            <span class="tag" data-i18n="aboutFocus2">Reliability</span>
+            <span class="tag" data-i18n="aboutFocus3">Monitoring</span>
+            <span class="tag" data-i18n="aboutFocus4">Documentation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SKILLS / TECH STACK ============================== -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal" data-i18n="skillsEyebrow">// tech-stack</p>
+          <h2 class="section-title reveal" data-i18n="skillsHeading">Tech Stack</h2>
+        </div>
+
+        <div class="skills__grid">
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryInfra">Infrastructure</h3>
+            <div class="tag-row">
+              <span class="tag">Docker</span>
+              <span class="tag">Kubernetes</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Windows Server</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryAutomation">Automation &amp; CI/CD</h3>
+            <div class="tag-row">
+              <span class="tag">GitLab</span>
+              <span class="tag">GitLab CI/CD</span>
+              <span class="tag">Ansible</span>
+              <span class="tag">Bash</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryMonitoring">Monitoring</h3>
+            <div class="tag-row">
+              <span class="tag">Zabbix</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryNetworking">Networking</h3>
+            <div class="tag-row">
+              <span class="tag">WireGuard</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryErp">ERP &amp; E-Commerce</h3>
+            <div class="tag-row">
+              <span class="tag">JTL-Wawi</span>
+              <span class="tag">Shopware</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group__title" data-i18n="skillsCategoryDev">Development</h3>
+            <div class="tag-row">
+              <span class="tag">Java</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">PHP</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PROJECTS ============================== -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal" data-i18n="projectsEyebrow">// projects</p>
+          <h2 class="section-title reveal" data-i18n="projectsHeading">Projects</h2>
+          <p class="section-lead reveal" data-i18n="projectsIntro">A few things I've built outside of work — full-stack apps, tooling, and experiments.</p>
+        </div>
+
+        <div class="projects__grid" id="projectsGrid"><!-- rendered by js/main.js from js/data.js --></div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================== -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal" data-i18n="contactEyebrow">// contact</p>
+          <h2 class="section-title reveal" data-i18n="contactHeading">Get in Touch</h2>
+          <p class="section-lead reveal" data-i18n="contactSubhead">Open to new opportunities in DevOps, System Administration, and Infrastructure Engineering. Feel free to reach out — I'd love to hear from you.</p>
+        </div>
+
+        <div class="contact__grid">
+          <div class="contact__methods">
+            <a class="contact-method reveal" href="mailto:victorsalsa2025@hotmail.com">
+              <span class="contact-method__icon"><svg><use href="#icon-mail"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactEmailLabel">Email</span>
+                <span class="contact-method__value">victorsalsa2025@hotmail.com</span>
+              </span>
+              <button type="button" class="icon-btn contact-method__copy" data-copy-value="victorsalsa2025@hotmail.com" data-i18n-aria="contactCopyAria" aria-label="Copy to clipboard">
+                <svg class="copy-icon copy-icon--default"><use href="#icon-copy"></use></svg>
+                <svg class="copy-icon copy-icon--done"><use href="#icon-check"></use></svg>
+              </button>
+            </a>
+
+            <a class="contact-method reveal" href="tel:+4915223758978">
+              <span class="contact-method__icon"><svg><use href="#icon-phone"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactPhoneLabel">Phone</span>
+                <span class="contact-method__value">+49 1522 3758978</span>
+              </span>
+              <button type="button" class="icon-btn contact-method__copy" data-copy-value="+4915223758978" data-i18n-aria="contactCopyAria" aria-label="Copy to clipboard">
+                <svg class="copy-icon copy-icon--default"><use href="#icon-copy"></use></svg>
+                <svg class="copy-icon copy-icon--done"><use href="#icon-check"></use></svg>
+              </button>
+            </a>
+
+            <a class="contact-method reveal" href="https://www.linkedin.com/in/victor-salgado-699632357" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method__icon"><svg><use href="#icon-linkedin"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactLinkedinLabel">LinkedIn</span>
+                <span class="contact-method__value">linkedin.com/in/victor-salgado</span>
+              </span>
+              <span class="icon-btn" aria-hidden="true"><svg><use href="#icon-external-link"></use></svg></span>
+            </a>
+
+            <a class="contact-method reveal" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method__icon"><svg><use href="#icon-github"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactGithubLabel">GitHub</span>
+                <span class="contact-method__value">github.com/victor202502</span>
+              </span>
+              <span class="icon-btn" aria-hidden="true"><svg><use href="#icon-external-link"></use></svg></span>
+            </a>
+
+            <div class="contact-method reveal">
+              <span class="contact-method__icon"><svg><use href="#icon-map-pin"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactLocationLabel">Location</span>
+                <span class="contact-method__value" data-i18n="contactLocationValue">Darmstadt, Germany</span>
+              </span>
+            </div>
+
+            <a class="contact-method reveal" href="downloads/Lebenslauf victor 2025.pdf" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method__icon"><svg><use href="#icon-download"></use></svg></span>
+              <span class="contact-method__text">
+                <span class="contact-method__label" data-i18n="contactCvLabel">CV / Resume</span>
+                <span class="contact-method__value" data-i18n="contactCvDownload">Download PDF</span>
+              </span>
+            </a>
+          </div>
+
+          <form class="card contact-form reveal" id="contactForm" action="https://formspree.io/f/xanedrqg" method="POST" novalidate>
+            <div class="contact-form__row">
+              <div class="field">
+                <label for="formName" data-i18n="formName">Name</label>
+                <input type="text" id="formName" name="name" required data-i18n-placeholder="formNamePlaceholder" placeholder="Your name" aria-describedby="formName-error">
+                <span class="field__error" id="formName-error" role="alert"></span>
+              </div>
+              <div class="field">
+                <label for="formEmail" data-i18n="formEmail">Email</label>
+                <input type="email" id="formEmail" name="email" required data-i18n-placeholder="formEmailPlaceholder" placeholder="you@email.com" aria-describedby="formEmail-error">
+                <span class="field__error" id="formEmail-error" role="alert"></span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="formSubject" data-i18n="formSubject">Subject</label>
+              <input type="text" id="formSubject" name="subject" required data-i18n-placeholder="formSubjectPlaceholder" placeholder="What's this about?" aria-describedby="formSubject-error">
+              <span class="field__error" id="formSubject-error" role="alert"></span>
+            </div>
+            <div class="field">
+              <label for="formMessage" data-i18n="formMessage">Message</label>
+              <textarea id="formMessage" name="message" rows="5" required data-i18n-placeholder="formMessagePlaceholder" placeholder="Tell me a bit about the role or project…" aria-describedby="formMessage-error"></textarea>
+              <span class="field__error" id="formMessage-error" role="alert"></span>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block" data-i18n="formSend">Send Message</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">© <span id="footerYear">2026</span> Víctor Salgado. <span data-i18n="footerRights">All rights reserved.</span></p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#experience" data-i18n="navExperience">Experience</a>
+        <a href="#about" data-i18n="navAbout">About</a>
+        <a href="#skills" data-i18n="navSkills">Tech Stack</a>
+        <a href="#projects" data-i18n="navProjects">Projects</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
+      </nav>
+      <div class="footer__socials">
+        <a class="icon-btn" href="https://github.com/victor202502" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#icon-github"></use></svg></a>
+        <a class="icon-btn" href="https://www.linkedin.com/in/victor-salgado-699632357" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#icon-linkedin"></use></svg></a>
+        <a class="icon-btn" href="mailto:victorsalsa2025@hotmail.com" aria-label="Email"><svg><use href="#icon-mail"></use></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="to-top" id="toTopBtn" data-i18n-aria="backToTopAria" aria-label="Back to top">
+    <svg><use href="#icon-arrow-up"></use></svg>
+  </button>
+
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
