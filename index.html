@@ -374,7 +374,24 @@
           <p class="section-lead reveal" data-i18n="projectsIntro">A few things I've built outside of work — full-stack apps, tooling, and experiments.</p>
         </div>
 
-        <div class="projects__grid" id="projectsGrid"><!-- rendered by js/main.js from js/data.js --></div>
+        <div class="project-carousel" role="region" aria-roledescription="carousel" aria-labelledby="projectsHeading">
+          <button class="icon-btn project-carousel__arrow" id="projectsPrevious" type="button" data-i18n-aria="projectsPreviousAria" data-i18n-title="projectsPreviousAria" aria-label="Previous project" title="Previous project">
+            <svg class="project-carousel__arrow-icon project-carousel__arrow-icon--previous"><use href="#icon-chevron-down"></use></svg>
+          </button>
+          <div class="project-carousel__viewport" id="projectsViewport">
+            <div class="projects__grid" id="projectsGrid"><!-- rendered by js/main.js from js/data.js --></div>
+            <div class="project-carousel__hint" id="projectsSwipeHint" data-i18n="projectsSwipeHint" role="status" aria-live="polite" aria-hidden="true">
+              <span class="project-carousel__hint-arrows" aria-hidden="true">
+                <svg><use href="#icon-chevron-down"></use></svg>
+                <svg><use href="#icon-chevron-down"></use></svg>
+              </span>
+              <span>Desliza hacia un lado para ver más proyectos</span>
+            </div>
+          </div>
+          <button class="icon-btn project-carousel__arrow" id="projectsNext" type="button" data-i18n-aria="projectsNextAria" data-i18n-title="projectsNextAria" aria-label="Next project" title="Next project">
+            <svg class="project-carousel__arrow-icon project-carousel__arrow-icon--next"><use href="#icon-chevron-down"></use></svg>
+          </button>
+        </div>
       </div>
     </section>
 

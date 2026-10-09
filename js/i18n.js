@@ -88,6 +88,9 @@
       projectPaintTitle: 'JavaFX Zeichenanwendung',
       projectPaintDesc: 'Desktop-Zeichenanwendung mit Formwerkzeugen, PNG-Export sowie Zoom und Pan der Zeichenfläche, entwickelt auf der JVM.',
       projectDetailsButton: 'Technische Details',
+      projectsPreviousAria: 'Vorheriges Projekt',
+      projectsNextAria: 'Nächstes Projekt',
+      projectsSwipeHint: 'Wische zur Seite, um weitere Projekte zu sehen',
       projectDetailsClose: 'Schließen',
       projectDetailsCloseAria: 'Projektdetails schließen',
       projectTechnologiesLabel: 'Technologien',
@@ -221,6 +224,9 @@
       projectPaintTitle: 'JavaFX Paint Application',
       projectPaintDesc: 'Desktop drawing application with shape tools, PNG export, and canvas zoom/pan, built on the JVM.',
       projectDetailsButton: 'Technical details',
+      projectsPreviousAria: 'Previous project',
+      projectsNextAria: 'Next project',
+      projectsSwipeHint: 'Swipe sideways to see more projects',
       projectDetailsClose: 'Close',
       projectDetailsCloseAria: 'Close project details',
       projectTechnologiesLabel: 'Technologies',
@@ -354,6 +360,9 @@
       projectPaintTitle: 'Aplicación de Dibujo JavaFX',
       projectPaintDesc: 'Aplicación de dibujo de escritorio con herramientas de formas, exportación a PNG y zoom/desplazamiento del lienzo, desarrollada sobre la JVM.',
       projectDetailsButton: 'Detalles técnicos',
+      projectsPreviousAria: 'Proyecto anterior',
+      projectsNextAria: 'Proyecto siguiente',
+      projectsSwipeHint: 'Desliza hacia un lado para ver más proyectos',
       projectDetailsClose: 'Cerrar',
       projectDetailsCloseAria: 'Cerrar detalles del proyecto',
       projectTechnologiesLabel: 'Tecnologías',
@@ -438,6 +447,9 @@
     });
     document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
       el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
+      el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
     });
 
     document.title = t('metaTitle');

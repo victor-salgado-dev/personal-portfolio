@@ -59,10 +59,156 @@
     const grid = document.getElementById('projectsGrid');
     if (!grid || typeof PROJECTS_DATA === 'undefined') return;
     grid.innerHTML = PROJECTS_DATA.map(projectCardHTML).join('');
+    buildProjectCarousel(grid);
     if (window.PortfolioAnimations) {
       window.PortfolioAnimations.initScrollReveal(grid);
     }
     initMobileProjectPreviews(grid);
+  }
+
+  const CAROUSEL_TRANSITION_MS = 520;
+  let projectCarouselCount = 0;
+  let projectCarouselTimer = null;
+  let projectCarouselLocked = false;
+  let projectCarouselTouchStart = null;
+  let projectCarouselSuppressClick = false;
+  let projectCarouselSuppressTimer = null;
+  let projectCarouselHintTimer = null;
+
+  function setProjectCarouselBusy(isBusy) {
+    ['projectsPrevious', 'projectsNext'].forEach(function (id) {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.setAttribute('aria-disabled', String(isBusy));
+      button.classList.toggle('is-moving', isBusy);
+    });
+  }
+
+  function projectCarouselStep(grid) {
+    const firstCard = grid.firstElementChild;
+    if (!firstCard) return 0;
+    return firstCard.getBoundingClientRect().width + parseFloat(window.getComputedStyle(grid).gap || 0);
+  }
+
+  function buildProjectCarousel(grid) {
+    if (projectCarouselTimer) window.clearTimeout(projectCarouselTimer);
+    projectCarouselLocked = false;
+    setProjectCarouselBusy(false);
+    projectCarouselCount = grid.children.length;
+    grid.style.transition = 'none';
+    grid.style.transform = 'translateX(0px)';
+    window.requestAnimationFrame(function () { grid.style.transition = ''; });
+  }
+
+  function moveProjectCarousel(direction) {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid || projectCarouselCount < 2) return;
+    if (projectCarouselLocked) return;
+    const carousel = grid.closest('.project-carousel');
+    if (carousel) carousel.classList.remove('is-swipe-hint');
+    hideProjectCarouselHint();
+    projectCarouselLocked = true;
+    setProjectCarouselBusy(true);
+    const step = projectCarouselStep(grid);
+    if (direction < 0) {
+      grid.style.transition = 'none';
+      grid.insertBefore(grid.lastElementChild, grid.firstElementChild);
+      grid.style.transform = 'translateX(-' + step + 'px)';
+      grid.offsetWidth;
+    }
+    grid.style.transition = '';
+    grid.style.transform = direction > 0 ? 'translateX(-' + step + 'px)' : 'translateX(0px)';
+
+    let normalized = false;
+    function onTransitionEnd(event) {
+      if (event.target !== grid || event.propertyName !== 'transform') return;
+      grid.removeEventListener('transitionend', onTransitionEnd);
+      finishTransition();
+    }
+    function finishTransition() {
+      if (normalized) return;
+      normalized = true;
+      grid.removeEventListener('transitionend', onTransitionEnd);
+      if (projectCarouselTimer) window.clearTimeout(projectCarouselTimer);
+      projectCarouselTimer = null;
+      if (direction > 0) grid.appendChild(grid.firstElementChild);
+      grid.style.transition = 'none';
+      grid.style.transform = 'translateX(0px)';
+      grid.offsetWidth;
+      window.requestAnimationFrame(function () {
+        grid.style.transition = '';
+        projectCarouselLocked = false;
+        setProjectCarouselBusy(false);
+      });
+    }
+
+    grid.addEventListener('transitionend', onTransitionEnd);
+    projectCarouselTimer = window.setTimeout(finishTransition, CAROUSEL_TRANSITION_MS + 80);
+  }
+
+  function hideProjectCarouselHint() {
+    const carousel = document.querySelector('.project-carousel');
+    const hint = document.getElementById('projectsSwipeHint');
+    if (projectCarouselHintTimer) window.clearTimeout(projectCarouselHintTimer);
+    projectCarouselHintTimer = null;
+    if (carousel) carousel.classList.remove('is-swipe-hint');
+    if (hint) hint.setAttribute('aria-hidden', 'true');
+  }
+
+  function initProjectCarousel() {
+    const previous = document.getElementById('projectsPrevious');
+    const next = document.getElementById('projectsNext');
+    const grid = document.getElementById('projectsGrid');
+    const viewport = document.getElementById('projectsViewport');
+    if (!previous || !next || !grid || !viewport) return;
+
+    previous.addEventListener('click', function () { moveProjectCarousel(-1); });
+    next.addEventListener('click', function () { moveProjectCarousel(1); });
+
+    viewport.addEventListener('pointerdown', function (event) {
+      if (event.pointerType !== 'touch' && event.pointerType !== 'pen') return;
+      projectCarouselTouchStart = { x: event.clientX, y: event.clientY, pointerId: event.pointerId };
+    });
+    viewport.addEventListener('pointerup', function (event) {
+      if (!projectCarouselTouchStart || projectCarouselTouchStart.pointerId !== event.pointerId) return;
+      const deltaX = event.clientX - projectCarouselTouchStart.x;
+      const deltaY = event.clientY - projectCarouselTouchStart.y;
+      projectCarouselTouchStart = null;
+      if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+
+      event.preventDefault();
+      hideProjectCarouselHint();
+      projectCarouselSuppressClick = true;
+      if (projectCarouselSuppressTimer) window.clearTimeout(projectCarouselSuppressTimer);
+      projectCarouselSuppressTimer = window.setTimeout(function () {
+        projectCarouselSuppressClick = false;
+        projectCarouselSuppressTimer = null;
+      }, 350);
+      moveProjectCarousel(deltaX < 0 ? 1 : -1);
+    });
+    viewport.addEventListener('pointercancel', function () { projectCarouselTouchStart = null; });
+    grid.addEventListener('click', function (event) {
+      if (!projectCarouselSuppressClick) return;
+      projectCarouselSuppressClick = false;
+      if (projectCarouselSuppressTimer) window.clearTimeout(projectCarouselSuppressTimer);
+      projectCarouselSuppressTimer = null;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
+
+    const carousel = viewport.closest('.project-carousel');
+    const narrowScreen = window.matchMedia && window.matchMedia('(max-width: 560px)').matches;
+    const hint = document.getElementById('projectsSwipeHint');
+    if (carousel && hint && narrowScreen && 'IntersectionObserver' in window) {
+      const hintObserver = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+        carousel.classList.add('is-swipe-hint');
+        hint.setAttribute('aria-hidden', 'false');
+        projectCarouselHintTimer = window.setTimeout(hideProjectCarouselHint, 4000);
+        hintObserver.disconnect();
+      }, { threshold: 0.35 });
+      hintObserver.observe(viewport);
+    }
   }
 
   let activeProjectId = null;
@@ -480,6 +626,7 @@
     if (window.I18n) window.I18n.init(); /* also triggers the first renderProjects() */
 
     initProjectDialog();
+    initProjectCarousel();
     initMobileNav();
     initLangSwitch();
     initThemeToggleButton();
